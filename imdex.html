@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Secure Examination Ecosystem | Uncompromised Integrity</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;500&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: { background: '#050505', surface: '#121212', amber: '#F59E0B', teal: '#14B8A6', green: '#4ADE80', border: 'rgba(255, 255, 255, 0.1)' },
+                    fontFamily: { outfit: ['Outfit', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], manrope: ['Manrope', 'sans-serif'] },
+                    backgroundImage: { 'hero-pattern': "repeating-linear-gradient(45deg, #050505 0, #050505 2px, #0a0a0a 2px, #0a0a0a 4px)" }
+                }
+            }
+        }
+    </script>
+
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+        body { background-color: #050505; color: #FFFFFF; font-family: 'Manrope', sans-serif; overflow-x: hidden; }
+        ::selection { background-color: #F59E0B; color: #000000; }
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #050505; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #F59E0B; }
+    </style>
+</head>
+<body class="antialiased selection:bg-amber selection:text-black">
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { motion } = window.Motion;
+
+        function App() {
+            React.useEffect(() => { lucide.createIcons(); }, []);
+
+            const [formName, setFormName] = React.useState('');
+            const [formContext, setFormContext] = React.useState('');
+            const [formMsg, setFormMsg] = React.useState('');
+            const [formStatus, setFormStatus] = React.useState('IDLE');
+
+            const slideUp = { hidden: { opacity: 0, y: 40 }, visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } } };
+
+            const handleTransmit = (e) => {
+                e.preventDefault();
+                setFormStatus('SENDING');
+                setTimeout(() => {
+                    const newMsg = { id: Date.now(), name: formName, context: formContext, text: formMsg, date: new Date().toISOString() };
+                    const existing = JSON.parse(localStorage.getItem('see_messages') || '[]');
+                    localStorage.setItem('see_messages', JSON.stringify([newMsg, ...existing]));
+                    setFormStatus('SENT');
+                    setFormName(''); setFormContext(''); setFormMsg('');
+                    setTimeout(() => setFormStatus('IDLE'), 3000);
+                }, 1000);
+            };
+
+            return (
+                <div className="min-h-screen relative bg-background">
+                    {/* NAV */}
+                    <nav className="fixed w-full top-0 z-50 backdrop-blur-md bg-background/80 border-b border-white/10">
+                        <div className="max-w-7xl mx-auto px-6 h-20 flex justify-between items-center">
+                            <div className="flex items-center gap-4">
+                                <span className="font-mono text-xl tracking-widest font-bold text-amber">SEE</span>
+                                <span className="text-xs text-white/50 font-mono tracking-widest hidden md:inline">/ SECURE EXAM ECOSYSTEM</span>
+                            </div>
+                            <div className="hidden lg:flex gap-8 text-xs font-mono tracking-widest text-white/70">
+                                <a href="#ecosystem" className="hover:text-amber transition-colors">ECOSYSTEM</a>
+                                <a href="#architecture" className="hover:text-amber transition-colors">ARCHITECTURE</a>
+                                <a href="#owner" className="hover:text-amber transition-colors">OWNER</a>
+                            </div>
+                            <a href="admin.html" className="bg-amber text-black font-mono text-xs px-6 py-3 font-bold tracking-widest hover:bg-white transition-colors">
+                                ADMIN LOGIN
+                            </a>
+                        </div>
+                    </nav>
+
+                    {/* HERO SECTION */}
+                    <section className="relative pt-40 pb-20 lg:pt-48 lg:pb-32 px-6 border-b border-white/10 bg-hero-pattern">
+                        <div className="absolute inset-0 bg-gradient-to-b from-background/50 to-background pointer-events-none"></div>
+                        <div className="max-w-7xl mx-auto relative z-10 grid lg:grid-cols-2 gap-16 items-center">
+                            <motion.div initial="hidden" animate="visible" variants={slideUp}>
+                                <div className="text-xs font-mono text-white/50 tracking-widest mb-6">// ENTERPRISE-STATUS: OPERATIONAL</div>
+                                <h1 className="font-outfit font-bold text-6xl lg:text-7xl tracking-tighter leading-[1.1] mb-6">Uncompromised<br/><span className="text-amber">Integrity.</span></h1>
+                                <p className="text-white/70 text-lg max-w-xl mb-10 leading-relaxed font-manrope">Enterprise-grade <strong>Secure Examination Ecosystem</strong> engineered for high-stakes offline assessments. Four hermetically sealed applications. Three phases of active defense. Zero tolerance for compromise.</p>
+                                <div className="flex flex-wrap gap-4 mb-16">
+                                    <a href="#architecture" className="bg-amber text-black font-mono text-sm px-8 py-4 font-bold inline-flex items-center gap-2 hover:bg-white transition-colors">View Architecture <i data-lucide="arrow-right" className="w-4 h-4"></i></a>
+                                    <a href="#owner" className="border border-white/20 text-white font-mono text-sm px-8 py-4 inline-flex items-center gap-2 hover:border-white transition-colors"><i data-lucide="user" className="w-4 h-4"></i> Contact Founder</a>
+                                </div>
+                            </motion.div>
+
+                            {/* Hero Right Visual */}
+                            <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.8, delay: 0.2 }} className="relative hidden lg:block">
+                                <div className="bg-surface border border-white/10 p-8 shadow-2xl relative">
+                                    <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber to-transparent"></div>
+                                    <div className="flex justify-between items-start mb-8">
+                                        <div className="text-[10px] font-mono text-white/50 tracking-widest">// APP.01 - CAPSUP OFFLINE</div>
+                                        <div className="w-2 h-2 rounded-full bg-green animate-pulse"></div>
+                                    </div>
+                                    
+                                    {/* FIXED IMAGE PATH */}
+                                    <div className="bg-white/5 border border-white/10 p-4 mb-8 flex justify-center items-center h-48 rounded-sm">
+                                        <img src="1000139703.png" alt="CAPSUP Logo" className="h-full w-auto object-contain" onError={(e) => { e.target.style.display='none'; e.target.nextSibling.style.display='block'; }} />
+                                        <div style={{display:'none'}} className="text-center font-mono text-xs text-white/40">Logo File Not Found</div>
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-4 font-mono text-[10px] text-white/50">
+                                        <div className="flex items-center gap-2"><i data-lucide="check-circle" className="w-3 h-3 text-green"></i> OFFLINE MODE</div>
+                                        <div className="flex items-center gap-2"><i data-lucide="check-circle" className="w-3 h-3 text-green"></i> 0 BYTES LEAKED</div>
+                                        <div className="flex items-center gap-2"><i data-lucide="check-circle" className="w-3 h-3 text-green"></i> TAMPER PROOF</div>
+                                        <div className="flex items-center gap-2"><i data-lucide="check-circle" className="w-3 h-3 text-green"></i> VAULT LOCKED</div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </section>
+
+                    {/* ECOSYSTEM */}
+                    <section id="ecosystem" className="py-32 px-6 border-b border-white/10">
+                        <div className="max-w-7xl mx-auto">
+                            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={slideUp}>
+                                <div className="text-[10px] font-mono text-white/50 tracking-widest mb-4">// SECTION.02 / THE ECOSYSTEM</div>
+                                <h2 className="font-outfit text-4xl lg:text-5xl font-bold tracking-tight mb-16">Four specialized applications.</h2>
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div className="bg-surface border border-white/10 p-8 hover:border-amber/50 transition-colors group"><div className="text-[10px] font-mono text-green mb-6 tracking-widest">// APP.01</div><i data-lucide="shield" className="w-10 h-10 text-amber mb-6 group-hover:scale-110 transition-transform"></i><h3 className="font-outfit text-2xl font-bold mb-3">CAPSUP Offline</h3><p className="text-white/60 text-sm">Strictly offline, impenetrable test environment.</p></div>
+                                    <div className="bg-surface border border-white/10 p-8 hover:border-amber/50 transition-colors group"><div className="text-[10px] font-mono text-white/50 mb-6 tracking-widest">// APP.02</div><i data-lucide="cpu" className="w-10 h-10 text-white mb-6 group-hover:scale-110 transition-transform"></i><h3 className="font-outfit text-2xl font-bold mb-3">Key Generator</h3><p className="text-white/60 text-sm">Hardware Fingerprinting Engine to establish zero-trust identity.</p></div>
+                                    <div className="bg-surface border border-white/10 p-8 hover:border-amber/50 transition-colors group"><div className="text-[10px] font-mono text-white/50 mb-6 tracking-widest">// APP.03</div><i data-lucide="file-key" className="w-10 h-10 text-white mb-6 group-hover:scale-110 transition-transform"></i><h3 className="font-outfit text-2xl font-bold mb-3">Payload Generator</h3><p className="text-white/60 text-sm">Secure admin authoring environment for obfuscated payload files.</p></div>
+                                    <div className="bg-surface border border-white/10 p-8 hover:border-amber/50 transition-colors group"><div className="text-[10px] font-mono text-white/50 mb-6 tracking-widest">// APP.04</div><i data-lucide="lock" className="w-10 h-10 text-white mb-6 group-hover:scale-110 transition-transform"></i><h3 className="font-outfit text-2xl font-bold mb-3">The Opener</h3><p className="text-white/60 text-sm">Decryption Engine utilizing military-grade digital envelopes.</p></div>
+                                </div>
+                            </motion.div>
+                        </div>
+    </section>
+                                      {/* ARCHITECTURE */}
+                    <section id="architecture" className="py-32 px-6 border-b border-white/10 bg-[#080808]">
+                        <div className="max-w-7xl mx-auto">
+                            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={slideUp}>
+                                <div className="text-[10px] font-mono text-white/50 tracking-widest mb-4">// SECTION.03 / DEFENSE LAYERS</div>
+                                <h2 className="font-outfit text-4xl lg:text-5xl font-bold tracking-tight mb-16">Security Architecture.</h2>
+                                <div className="space-y-6">
+                                    <div className="bg-surface border-l-4 border-amber p-8 lg:p-10 shadow-lg"><h4 className="font-mono text-xs text-amber tracking-widest mb-3">PHASE 1</h4><h3 className="font-outfit text-2xl font-bold mb-3">Pre-Launch & Integrity</h3><p className="text-white/60 text-sm">Cryptographic Remote Integrity Locks and Binary Obfuscation.</p></div>
+                                    <div className="bg-surface border-l-4 border-teal p-8 lg:p-10 shadow-lg ml-0 lg:ml-8 relative z-10"><h4 className="font-mono text-xs text-teal tracking-widest mb-3">PHASE 2</h4><h3 className="font-outfit text-2xl font-bold mb-3">In-Exam Active Defense</h3><p className="text-white/60 text-sm">Absolute Kiosk UI Lockdown and continuous process blacklisting.</p></div>
+                                    <div className="bg-surface border-l-4 border-green p-8 lg:p-10 shadow-lg ml-0 lg:ml-16 relative z-20"><h4 className="font-mono text-xs text-green tracking-widest mb-3">PHASE 3</h4><h3 className="font-outfit text-2xl font-bold mb-3">Forensic Telemetry</h3><p className="text-white/60 text-sm">Multi-Layer Memory Honeypots and Chronological Tamper Defense.</p></div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </section>
+
+                    {/* OWNER PROFILE */}
+                    <section id="owner" className="py-32 px-6 border-b border-white/10 bg-[#080808]">
+                        <div className="max-w-4xl mx-auto">
+                            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={slideUp}>
+                                <div className="text-[10px] font-mono text-white/50 tracking-widest mb-4">// SECTION.04 / FOUNDER PROFILE</div>
+                                <h2 className="font-outfit text-4xl lg:text-5xl font-bold tracking-tight mb-2">Architected by one.</h2>
+                                <h2 className="font-outfit text-4xl lg:text-5xl font-bold tracking-tight text-white/30 mb-16">Trusted by many.</h2>
+                                <div className="grid md:grid-cols-2 bg-surface border border-white/10 shadow-2xl">
+                                    <div className="p-16 border-b md:border-b-0 md:border-r border-white/10 flex items-center justify-center relative bg-background/50">
+                                        <div className="absolute top-4 left-4 text-[10px] font-mono text-white/30">ID. 8492</div>
+                                        <div className="absolute top-4 right-4 text-[10px] font-mono text-amber tracking-widest">CLEARED</div>
+                                        <div className="text-7xl lg:text-9xl font-outfit font-black tracking-tighter"><span className="text-white">L</span><span className="text-amber">P</span></div>
+                                    </div>
+                                    <div className="p-8 lg:p-12 flex flex-col justify-center">
+                                        <div className="text-[10px] font-mono text-amber tracking-widest mb-2">FOUNDER & SECURITY ARCHITECT</div>
+                                        <h3 className="font-outfit text-3xl font-bold mb-4">Luccky Pandey</h3>
+                                        <p className="text-sm text-white/60 font-manrope leading-relaxed mb-6">19-year-old sole developer behind the Secure Examination Ecosystem. Builds proprietary cryptographic tooling and hardware-bound secure infrastructure.</p>
+                                        <div className="flex flex-wrap gap-3">
+                                            <a href="https://twitter.com/lucckypandey" className="border border-white/20 px-4 py-2 text-[10px] font-mono flex items-center gap-2 hover:bg-white hover:text-black transition-colors"><i data-lucide="twitter" className="w-3 h-3"></i> @lucckypandey</a>
+                                            <a href="https://instagram.com/luccpandey" className="border border-white/20 px-4 py-2 text-[10px] font-mono flex items-center gap-2 hover:bg-white hover:text-black transition-colors"><i data-lucide="instagram" className="w-3 h-3"></i> @luccpandey</a>
+                                            <a href="https://wa.me/917369387462" className="border border-white/20 px-4 py-2 text-[10px] font-mono flex items-center gap-2 hover:bg-white hover:text-black transition-colors"><i data-lucide="message-square" className="w-3 h-3"></i> WhatsApp</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </motion.div>
+                        </div>
+                    </section>
+
+                    {/* NEW: WRITE TO ADMIN FORM */}
+                    <section className="py-32 px-6 border-b border-white/10">
+                        <div className="max-w-4xl mx-auto">
+                            <motion.div initial="hidden" whileInView="visible" viewport={{ once: true }} variants={slideUp}>
+                                <div className="text-[10px] font-mono text-amber tracking-widest mb-4">// DIRECT UPLINK / WRITE TO ADMIN</div>
+                                <h2 className="font-outfit text-3xl lg:text-4xl font-bold tracking-tight mb-8">Secure Transmission.</h2>
+                                
+                                <form onSubmit={handleTransmit} className="bg-surface border border-white/10 p-8">
+                                    <div className="grid md:grid-cols-2 gap-6 mb-6">
+                                        <div>
+                                            <label className="text-[10px] font-mono text-white/50 mb-2 block">IDENTIFIER (NAME)</label>
+                                            <input type="text" required value={formName} onChange={e=>setFormName(e.target.value)} className="w-full bg-black border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-amber transition-colors" placeholder="John Doe" />
+                                        </div>
+                                        <div>
+                                            <label className="text-[10px] font-mono text-white/50 mb-2 block">CONTEXT (SUBJECT / STORY)</label>
+                                            <input type="text" required value={formContext} onChange={e=>setFormContext(e.target.value)} className="w-full bg-black border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-amber transition-colors" placeholder="Project Inquiry" />
+                                        </div>
+                                    </div>
+                                    <div className="mb-6">
+                                        <label className="text-[10px] font-mono text-white/50 mb-2 block">TRANSMISSION DATA (MESSAGE)</label>
+                                        <textarea required value={formMsg} onChange={e=>setFormMsg(e.target.value)} rows="4" className="w-full bg-black border border-white/10 px-4 py-3 text-sm focus:outline-none focus:border-amber transition-colors" placeholder="Your message here..."></textarea>
+                                    </div>
+                                    
+                                    <div className="flex items-center justify-between border-t border-white/10 pt-6">
+                                        <div className="text-xs font-mono text-white/40">
+                                            {formStatus === 'IDLE' && "Connection secure. Ready to transmit."}
+                                            {formStatus === 'SENDING' && <span className="text-amber animate-pulse">ENCRYPTING AND SENDING...</span>}
+                                            {formStatus === 'SENT' && <span className="text-green flex items-center gap-2"><i data-lucide="check" className="w-4 h-4"></i> TRANSMITTED. AUTO-DESTRUCT IN 72H.</span>}
+                                        </div>
+                                        <button type="submit" disabled={formStatus !== 'IDLE'} className="bg-amber text-black font-mono text-xs px-8 py-3 font-bold tracking-widest hover:bg-white transition-colors disabled:opacity-50">
+                                            TRANSMIT
+                                        </button>
+                                    </div>
+                                </form>
+                            </motion.div>
+                        </div>
+                    </section>
+
+                    <footer className="py-12 px-6 border-t border-white/10 text-center">
+                        <div className="flex flex-col items-center gap-4 text-[10px] font-mono text-white/30">
+                            <span className="text-amber">SEE // CAPSUP</span>
+                            <span>SECURE EXAMINATION ECOSYSTEM © 2026 LUCCKY PANDEY</span>
+                            <a href="admin.html" className="border border-white/10 px-4 py-2 hover:border-amber hover:text-amber transition-colors">ADMIN LOGIN</a>
+                        </div>
+                    </footer>
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>

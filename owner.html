@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Founder Profile - Luccky Pandey, Security Architect of the Secure Examination Ecosystem.">
+    <meta name="theme-color" content="#050505">
+    <title>SEE // Founder Profile</title>
+    <link rel="icon" href="https://raw.githubusercontent.com/LUCCKYPANDEY2/LUCCKYPANDEY/main/1000139703.png">
+    
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Manrope:wght@400;500&family=Outfit:wght@600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = { theme: { extend: { colors: { background: '#050505', surface: '#121212', amber: '#F59E0B' }, fontFamily: { outfit: ['Outfit', 'sans-serif'], mono: ['JetBrains Mono', 'monospace'], manrope: ['Manrope', 'sans-serif'] } } } }
+    </script>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <script src="https://unpkg.com/framer-motion@10.16.4/dist/framer-motion.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>body { background-color: #050505; color: #FFFFFF; font-family: 'Manrope', sans-serif; }</style>
+</head>
+<body class="antialiased selection:bg-amber selection:text-black">
+    <div id="root"></div>
+    <script type="text/babel">
+        const { motion, AnimatePresence } = window.Motion;
+
+        function OwnerPage() {
+            React.useEffect(() => { lucide.createIcons(); }, []);
+            const [slideIndex, setSlideIndex] = React.useState(0);
+
+            // Placeholder Storyline Data
+            const storyline = [
+                { id: "01", title: "THE GENESIS", text: "[PENDING INJECTION] Supply the exact origin story here. This text will be updated once the founder provides the narrative..." },
+                { id: "02", title: "ARCHITECTING THE VAULT", text: "[PENDING INJECTION] Explain the building process, the challenges faced, and how the core encryption was developed..." },
+                { id: "03", title: "DEPLOYMENT & FUTURE", text: "[PENDING INJECTION] Detail the current state of the ecosystem and the vision for the future of secure examinations..." }
+            ];
+
+            return (
+                <div className="min-h-screen bg-background relative pb-20">
+                    <nav className="w-full top-0 z-50 backdrop-blur-xl bg-background/70 border-b border-white/10 sticky">
+                        <div className="max-w-4xl mx-auto px-6 h-20 flex justify-between items-center">
+                            <a href="index.html" className="flex items-center gap-4 hover:opacity-70 transition-opacity">
+                                <i data-lucide="arrow-left" className="w-5 h-5 text-amber"></i>
+                                <span className="font-mono text-sm tracking-widest font-bold">RETURN TO ECOSYSTEM</span>
+                            </a>
+                        </div>
+                    </nav>
+
+                    <div className="max-w-4xl mx-auto px-6 pt-16">
+                        <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6 }}>
+                            <div className="text-[10px] font-mono text-amber tracking-widest mb-4">// FOUNDER DOSSIER</div>
+                            <h1 className="font-outfit text-5xl lg:text-7xl font-bold tracking-tight mb-16">Luccky Pandey.</h1>
+
+                            {/* Profile Card */}
+                            <div className="grid md:grid-cols-2 bg-surface border border-white/10 shadow-2xl mb-16">
+                                <div className="p-16 border-b md:border-b-0 md:border-r border-white/10 flex items-center justify-center relative bg-black/50">
+                                    <div className="absolute top-4 left-4 text-[10px] font-mono text-white/30">ID. 8492</div>
+                                    <div className="absolute top-4 right-4 text-[10px] font-mono text-amber tracking-widest animate-pulse">CLEARED</div>
+                                    <div className="text-7xl lg:text-9xl font-outfit font-black tracking-tighter"><span className="text-white">L</span><span className="text-amber">P</span></div>
+                                </div>
+                                <div className="p-8 lg:p-12 flex flex-col justify-center">
+                                    <div className="text-[10px] font-mono text-amber tracking-widest mb-2">SECURITY ARCHITECT</div>
+                                    <p className="text-sm text-white/60 font-manrope leading-relaxed mb-6">
+                                        19-year-old sole developer behind the Secure Examination Ecosystem. Builds proprietary cryptographic tooling and hardware-bound secure infrastructure.
+                                    </p>
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <div><div className="text-[10px] font-mono text-white/40 mb-1">AGE</div><div className="text-sm font-bold">19 Years</div></div>
+                                        <div><div className="text-[10px] font-mono text-white/40 mb-1">LOCATION</div><div className="text-sm font-bold">Chandigarh</div></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Storyline Slider */}
+                            <div className="bg-surface border border-white/10 p-8 lg:p-12 relative overflow-hidden">
+                                <div className="absolute top-0 left-0 w-full h-1 bg-white/5"><div className="h-full bg-amber transition-all duration-500" style={{ width: `${((slideIndex + 1) / storyline.length) * 100}%` }}></div></div>
+                                <div className="text-[10px] font-mono text-white/40 tracking-widest mb-8">// ARCHIVE DATA . {storyline[slideIndex].id}</div>
+                                
+                                <div className="min-h-[200px]">
+                                    <AnimatePresence mode="wait">
+                                        <motion.div key={slideIndex} initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -20 }} transition={{ duration: 0.3 }}>
+                                            <h2 className="font-outfit text-3xl font-bold mb-4">{storyline[slideIndex].title}</h2>
+                                            <p className="text-white/60 leading-relaxed font-manrope">{storyline[slideIndex].text}</p>
+                                        </motion.div>
+                                    </AnimatePresence>
+                                </div>
+
+                                <div className="flex gap-4 mt-8 border-t border-white/10 pt-6">
+                                    <button onClick={() => setSlideIndex(prev => Math.max(0, prev - 1))} disabled={slideIndex === 0} className="p-3 border border-white/10 hover:border-amber disabled:opacity-30 transition-colors" aria-label="Previous Story"><i data-lucide="chevron-left" className="w-5 h-5"></i></button>
+                                    <button onClick={() => setSlideIndex(prev => Math.min(storyline.length - 1, prev + 1))} disabled={slideIndex === storyline.length - 1} className="p-3 border border-white/10 hover:border-amber disabled:opacity-30 transition-colors" aria-label="Next Story"><i data-lucide="chevron-right" className="w-5 h-5"></i></button>
+                                </div>
+                            </div>
+
+                        </motion.div>
+                    </div>
+                </div>
+            );
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<OwnerPage />);
+    </script>
+</body>
+</html>
